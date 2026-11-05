@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applied Electricity Mock Examination (100 Items)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .uppercase-input { text-transform: uppercase; }
+  </style>
+</head>
+<body class="h-full flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-white bg-slate-900">
+
+  <!-- TOP STICKY HEADER & NAVBAR -->
+  <header class="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
+
+      <!-- Brand & Exam Title -->
+      <div class="flex items-center space-x-2.5">
+        <button onclick="toggleMobileDrawer()" class="lg:hidden p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition" title="Toggle Question Map">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl shadow-md shadow-cyan-500/20 shrink-0">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <h1 class="text-xs sm:text-base font-bold text-white truncate leading-tight">APPLIED ELECTRICITY EXAM</h1>
+          <p class="text-[10px] sm:text-xs text-cyan-400 font-medium truncate">STRICT UP REVIEWER GUIDE (100 ITEMS)</p>
+        </div>
+      </div>
+
+      <!-- Live Timer & Stats -->
+      <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
+        <!-- Timer -->
+        <div class="flex items-center space-x-1.5 bg-slate-900 border border-slate-700/80 rounded-lg px-2.5 py-1 sm:px-3 sm:py-1.5 shadow-inner">
+          <svg class="w-3.5 h-3.5 text-cyan-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span id="timerDisplay" class="font-mono text-xs sm:text-sm font-bold text-cyan-300">00:00</span>
+        </div>
+
+        <!-- Answered Counter -->
+        <div class="hidden sm:block text-right">
+          <div class="text-[10px] font-semibold text-slate-400 uppercase">Progress</div>
+          <div class="text-xs font-bold text-slate-200">
+            <span id="answeredCount" class="text-cyan-400">0</span> / 100
+          </div>
+        </div>
+
+        <!-- Desktop Grid Toggle -->
+        <button onclick="toggleDesktopGrid()" class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg border border-slate-700 transition text-xs font-medium">
+          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          Nav Map
+        </button>
+
+        <!-- Submit Button -->
+        <button onclick="confirmSubmitExam()" class="px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs sm:text-sm rounded-lg shadow-lg shadow-emerald-500/20 transition transform active:scale-95">
+          Submit
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="w-full bg-slate-900 h-1 overflow-hidden">
+      <div id="progressBar" class="bg-gradient-to-r from-cyan-500 via-blue-500 to-emerald-400 h-full w-0 transition-all duration-300"></div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-col gap-5">
+
+    <!-- GENERAL INSTRUCTION BANNER -->
+    <div class="bg-gradient-to-r from-amber-500/15 via-orange-500/10 to-amber-500/15 border border-amber-500/30 rounded-xl p-3.5 sm:p-4 shadow-lg">
+      <div class="flex items-start gap-3">
+        <div class="p-1.5 bg-amber-500/20 rounded-lg text-amber-400 shrink-0 mt-0.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="space-y-0.5">
+          <h2 class="text-amber-300 font-extrabold text-xs sm:text-sm tracking-wide uppercase">
+            GENERAL DIRECTION: ANSWERS MUST ALL BE IN CAPITAL LETTERS.
+          </h2>
+          <p class="text-[11px] sm:text-xs text-amber-200/80 leading-relaxed">
+            Text fields auto-convert typing to uppercase. All items are strictly derived from the UP REVIEWER notes including atomic terms, VOM components, calculation word problems, and device specifications.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN EXAM LAYOUT -->
+    <div class="flex flex-col lg:flex-row gap-6 items-start">
+
+      <!-- LEFT: QUESTIONS CONTENT AREA -->
+      <div class="flex-1 w-full space-y-5">
+
+        <!-- CATEGORY FILTER TABS -->
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-2 flex flex-wrap items-center justify-between gap-2 shadow-md">
+          <div class="flex flex-wrap items-center gap-1">
+            <button onclick="filterPart('ALL')" id="filterBtn-ALL" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-bold transition bg-cyan-600 text-white shadow">
+              All (1-100)
+            </button>
+            <button onclick="filterPart(1)" id="filterBtn-1" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition">
+              Part I: Identification (1-50)
+            </button>
+            <button onclick="filterPart(2)" id="filterBtn-2" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition">
+              Part II: True/False (51-75)
+            </button>
+            <button onclick="filterPart(3)" id="filterBtn-3" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition">
+              Part III: Calculations (76-85)
+            </button>
+            <button onclick="filterPart(4)" id="filterBtn-4" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition">
+              Part IV: Enumeration (86-100)
+            </button>
+          </div>
+
+          <button onclick="toggleUnansweredOnly()" id="unansweredFilterBtn" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            Unanswered Only
+          </button>
+        </div>
+
+        <!-- QUESTION CARDS CONTAINER -->
+        <div id="questionsContainer" class="space-y-4">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- BOTTOM SUBMIT BAR -->
+        <div class="flex items-center justify-between bg-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl">
+          <div class="text-xs text-slate-400 hidden sm:block">
+            Reviewed all items? Click submit when ready to view your score breakdown.
+          </div>
+          <button onclick="confirmSubmitExam()" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-emerald-500/20 transition transform active:scale-95">
+            Complete & Finish Exam
+          </button>
+        </div>
+
+      </div>
+
+      <!-- RIGHT DESKTOP SIDEBAR: QUESTION MAP -->
+      <aside id="desktopGridSidebar" class="w-80 bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-xl shrink-0 hidden lg:block sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+          <h3 class="font-bold text-xs sm:text-sm text-slate-200 flex items-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+            </svg>
+            Question Map Navigator
+          </h3>
+          <span class="text-[11px] text-slate-400 font-mono">100 Items</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-1.5 text-[10px] font-semibold text-center mb-3 pb-2 border-b border-slate-800">
+          <div class="bg-slate-900 border border-slate-800 py-1 rounded text-slate-400">Unanswered</div>
+          <div class="bg-cyan-950/80 border border-cyan-500/50 py-1 rounded text-cyan-300">Answered</div>
+          <div class="bg-amber-950/80 border border-amber-500/50 py-1 rounded text-amber-300">Flagged</div>
+        </div>
+
+        <div id="desktopQuestionGrid" class="grid grid-cols-5 gap-1.5">
+          <!-- Rendered via JS -->
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-800 text-center">
+          <button onclick="clearAllAnswers()" class="text-xs text-rose-400 hover:text-rose-300 transition">
+            Clear All Input Answers
+          </button>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+
+  <!-- MOBILE SLIDE-OUT DRAWER FOR QUESTION MAP -->
+  <div id="mobileDrawerOverlay" onclick="toggleMobileDrawer()" class="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm hidden lg:hidden transition-opacity"></div>
+
+  <div id="mobileDrawer" class="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] bg-slate-950 border-r border-slate-800 p-4 shadow-2xl flex flex-col transform -translate-x-full transition-transform duration-300 lg:hidden">
+    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+      <h3 class="font-bold text-sm text-slate-200 flex items-center gap-2">
+        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+        Question Navigator
+      </h3>
+      <button onclick="toggleMobileDrawer()" class="p-1 text-slate-400 hover:text-white rounded-lg">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-3 gap-1.5 text-[10px] font-semibold text-center mb-3 pb-2 border-b border-slate-800">
+      <div class="bg-slate-900 border border-slate-800 py-1 rounded text-slate-400">Unanswered</div>
+      <div class="bg-cyan-950/80 border border-cyan-500/50 py-1 rounded text-cyan-300">Answered</div>
+      <div class="bg-amber-950/80 border border-amber-500/50 py-1 rounded text-amber-300">Flagged</div>
+    </div>
+
+    <div id="mobileQuestionGrid" class="grid grid-cols-5 gap-1.5 overflow-y-auto flex-1 pr-1">
+      <!-- Rendered via JS -->
+    </div>
+  </div>
+
+  <!-- RESULTS EVALUATION MODAL -->
+  <div id="resultsModal" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col hidden overflow-y-auto">
+    <div class="max-w-5xl w-full mx-auto px-4 py-6 sm:py-10 flex-1 flex flex-col gap-6">
+
+      <!-- SCORECARD BANNER -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+
+          <div class="flex items-center gap-5 sm:gap-6">
+            <div class="relative flex items-center justify-center shrink-0">
+              <svg class="w-28 h-28 sm:w-32 sm:h-32 transform -rotate-90">
+                <circle cx="64" cy="64" r="52" stroke="currentColor" stroke-width="10" class="text-slate-800" fill="transparent" />
+                <circle id="scoreCircle" cx="64" cy="64" r="52" stroke="currentColor" stroke-width="10" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="326.72" stroke-dashoffset="326.72" fill="transparent" stroke-linecap="round" />
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <span id="finalScorePct" class="text-2xl sm:text-3xl font-extrabold text-white font-mono">0%</span>
+                <span id="finalScoreFraction" class="text-[11px] font-mono text-slate-400">0 / 100</span>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div id="passBadge" class="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                PASSED
+              </div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white">Evaluation Scorecard</h2>
+              <p class="text-xs text-slate-400">Applied Electricity • UP Reviewer Mock Assessment</p>
+            </div>
+          </div>
+
+          <!-- Quick Stats Grid -->
+          <div class="grid grid-cols-3 gap-3 w-full md:w-auto">
+            <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl text-center">
+              <div class="text-[10px] font-bold text-slate-400 uppercase">Correct</div>
+              <div id="statCorrect" class="text-lg sm:text-xl font-extrabold text-emerald-400 font-mono">0</div>
+            </div>
+            <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl text-center">
+              <div class="text-[10px] font-bold text-slate-400 uppercase">Incorrect</div>
+              <div id="statIncorrect" class="text-lg sm:text-xl font-extrabold text-rose-400 font-mono">0</div>
+            </div>
+            <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl text-center">
+              <div class="text-[10px] font-bold text-slate-400 uppercase">Time Elapsed</div>
+              <div id="statTime" class="text-lg sm:text-xl font-extrabold text-cyan-400 font-mono">00:00</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Actions Bar -->
+        <div class="mt-6 pt-5 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <button onclick="filterReview('ALL')" id="revFilter-ALL" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-600 text-white shadow">
+              All Items
+            </button>
+            <button onclick="filterReview('CORRECT')" id="revFilter-CORRECT" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              Correct Only
+            </button>
+            <button onclick="filterReview('INCORRECT')" id="revFilter-INCORRECT" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">
+              Incorrect Only
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="retakeExam()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs rounded-xl border border-slate-700 transition">
+              Retake Exam
+            </button>
+            <button onclick="window.print()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs rounded-xl shadow-md transition">
+              Print Report
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item Breakdown List -->
+      <div id="reviewContainer" class="space-y-4 pb-12">
+        <!-- Review Cards injected by JS -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONFIRM SUBMISSION DIALOG -->
+  <div id="confirmModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center gap-3 text-amber-400">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <h3 class="text-base font-bold text-white">Submit Examination?</h3>
+      </div>
+      <p id="confirmModalText" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        Are you sure you want to finish and calculate your final grade?
+      </p>
+      <div class="flex items-center justify-end gap-2.5 pt-2">
+        <button onclick="closeConfirmModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold transition">
+          Continue Exam
+        </button>
+        <button onclick="processExamSubmission()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold shadow-lg shadow-emerald-600/20 transition">
+          Yes, Submit Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAM JAVASCRIPT LOGIC & 100-ITEM UP REVIEWER DATA BANK -->
+  <script>
+    // COMPLETE 100-ITEM DATASET (STRICTLY FROM UP REVIEWER PDF)
+    const questionsData = [
+      // PART I: IDENTIFICATION (1 - 50)
+      { id: 1, part: 1, type: 'identification', question: 'Subatomic particle carrying a negative charge.', valid: ['ELECTRON', 'ELECTRONS'], display: 'ELECTRON', excerpt: 'UP REVIEWER Page 1: Electron: A subatomic particle carrying a negative charge.' },
+      { id: 2, part: 1, type: 'identification', question: 'Energy transfer resulting from the movement or accumulation of electric charges.', valid: ['ELECTRICITY'], display: 'ELECTRICITY', excerpt: 'UP REVIEWER Page 1: Electricity: Energy transfer resulting from the movement or accumulation of electric charges.' },
+      { id: 3, part: 1, type: 'identification', question: 'Subatomic particle carrying a positive charge.', valid: ['PROTON', 'PROTONS'], display: 'PROTON', excerpt: 'UP REVIEWER Page 1: Proton: Positive charge.' },
+      { id: 4, part: 1, type: 'identification', question: 'Subatomic particle carrying a neutral charge.', valid: ['NEUTRON', 'NEUTRONS'], display: 'NEUTRON', excerpt: 'UP REVIEWER Page 1: Neutron: Neutral Charge.' },
+      { id: 5, part: 1, type: 'identification', question: 'Center of an atom containing protons and neutrons.', valid: ['NUCLEUS'], display: 'NUCLEUS', excerpt: 'UP REVIEWER Page 1: Nucleus: Center of atom contain proton and neutron.' },
+      { id: 6, part: 1, type: 'identification', question: 'Process of charge accumulation caused by friction.', valid: ['IONIZATION'], display: 'IONIZATION', excerpt: 'UP REVIEWER Page 1: Ionization: cause if friction.' },
+      { id: 7, part: 1, type: 'identification', question: 'Outermost shell of an atom.', valid: ['VALENCE SHELL'], display: 'VALENCE SHELL', excerpt: 'UP REVIEWER Page 1: Valence shell: outermost shell of atom.' },
+      { id: 8, part: 1, type: 'identification', question: 'An electron found in the outer shell of an atom.', valid: ['VALENCE ELECTRON', 'VALENCE ELECTRONS'], display: 'VALENCE ELECTRON', excerpt: 'UP REVIEWER Page 1: Valence electron: electron found in outer shell.' },
+      { id: 9, part: 1, type: 'identification', question: 'Main energy level surrounding an atom.', valid: ['ORBITAL SHELL', 'ELECTRON SHELL', 'ORBITAL SHELL / ELECTRON SHELL'], display: 'ORBITAL SHELL / ELECTRON SHELL', excerpt: 'UP REVIEWER Page 1: Orbital Shell / electron shell: main energy level surrounding an atom.' },
+      { id: 10, part: 1, type: 'identification', question: 'Materials with 1 to 3 valence electrons that allow loosely bound electrons to move freely across the atomic lattice.', valid: ['CONDUCTOR', 'CONDUCTORS'], display: 'CONDUCTORS', excerpt: 'UP REVIEWER Page 1: Conductors (1 to 3 Valence Electrons): Loosely bound electrons that move freely across atomic lattice.' },
+      { id: 11, part: 1, type: 'identification', question: 'Materials with 4 valence electrons exhibiting intermediate properties, such as Silicon and Germanium.', valid: ['SEMICONDUCTOR', 'SEMICONDUCTORS'], display: 'SEMICONDUCTORS', excerpt: 'UP REVIEWER Page 1: Semiconductors (4 Valence Electrons): Intermediate properties (e.g., Silicon, Germanium).' },
+      { id: 12, part: 1, type: 'identification', question: 'Materials with 5 to 8 valence electrons with a tightly bound outer shell resisting free electron flow.', valid: ['INSULATOR', 'INSULATORS'], display: 'INSULATORS', excerpt: 'UP REVIEWER Page 1: Insulators (5 to 8 Valence Electrons): Tightly bound outer shell resisting free electron flow.' },
+      { id: 13, part: 1, type: 'identification', question: 'Electric charge at rest on an ungrounded surface, susceptible to sudden ESD.', valid: ['STATIC ELECTRICITY'], display: 'STATIC ELECTRICITY', excerpt: 'UP REVIEWER Page 1: Static Electricity: Electric charge at rest on an ungrounded surface.' },
+      { id: 14, part: 1, type: 'identification', question: 'Sudden discharge event resulting from static electricity accumulation.', valid: ['ELECTROSTATIC DISCHARGE', 'ESD', 'ELECTROSTATIC DISCHARGE / ESD'], display: 'ELECTROSTATIC DISCHARGE (ESD)', excerpt: 'UP REVIEWER Page 1: Susceptible to sudden Electrostatic Discharge (ESD).' },
+      { id: 15, part: 1, type: 'identification', question: 'Controlled, continuous flow of electric charge through an intentional circuit path.', valid: ['DYNAMIC ELECTRICITY'], display: 'DYNAMIC ELECTRICITY', excerpt: 'UP REVIEWER Page 1: Dynamic Electricity: Controlled, continuous flow of electric charge through an intentional circuit path.' },
+      { id: 16, part: 1, type: 'identification', question: 'Type of electricity characterized by fixed polarity and unidirectional flow.', valid: ['DIRECT CURRENT', 'DC', 'DIRECT CURRENT / DC'], display: 'DIRECT CURRENT (DC)', excerpt: 'UP REVIEWER Page 1: Direct Current (DC): Fixed Polarity, Unidirectional flow.' },
+      { id: 17, part: 1, type: 'identification', question: 'Type of electricity characterized by alternating polarity and bi-directional cyclic reversal.', valid: ['ALTERNATING CURRENT', 'AC', 'ALTERNATING CURRENT / AC'], display: 'ALTERNATING CURRENT (AC)', excerpt: 'UP REVIEWER Page 1: Alternating Current (AC): Alternating Polarity, Bi-directional cyclic reversal.' },
+      { id: 18, part: 1, type: 'identification', question: 'Standard AC waveform shape that completes 1 cycle at 360 degrees.', valid: ['SINUSOIDAL', 'SINUSOIDAL WAVEFORM', 'SINE WAVE'], display: 'SINUSOIDAL', excerpt: 'UP REVIEWER Page 2: Sinusoidal Line - AC waveform.' },
+      { id: 19, part: 1, type: 'identification', question: 'Current directional flow convention moving from Negative (-) to Positive (+).', valid: ['ELECTRON FLOW'], display: 'ELECTRON FLOW', excerpt: 'UP REVIEWER Page 2: Electron Flow: Negative (-) to Positive (+).' },
+      { id: 20, part: 1, type: 'identification', question: 'Current directional flow convention moving from Positive (+) to Negative (-).', valid: ['CONVENTIONAL CURRENT FLOW', 'CONVENTIONAL CURRENT'], display: 'CONVENTIONAL CURRENT FLOW', excerpt: 'UP REVIEWER Page 2: Conventional Current Flow: Positive (+) to Negative (-).' },
+      { id: 21, part: 1, type: 'identification', question: 'Electrical hazard caused by the passage of current through the human body forming part of a closed circuit.', valid: ['ELECTRIC SHOCK'], display: 'ELECTRIC SHOCK', excerpt: 'UP REVIEWER Page 2: Electric Shock: Passage of current through the human body forming part of a closed circuit.' },
+      { id: 22, part: 1, type: 'identification', question: 'Tissue degradation resulting from severe current passage or physical arc contact.', valid: ['BURN', 'BURNS'], display: 'BURNS', excerpt: 'UP REVIEWER Page 2: Burns: Tissue degradation resulting from severe current passage or physical arc contact.' },
+      { id: 23, part: 1, type: 'identification', question: 'Explosive energy release producing intense light and thermal output up to 19,400°C.', valid: ['ARC FLASH', 'FLASHOVER EVENT', 'FLASHOVER', 'ARC FLASH / FLASHOVER EVENT'], display: 'ARC FLASH / FLASHOVER EVENT', excerpt: 'UP REVIEWER Page 2: Flashover Event / Arc Flash: Explosive energy release producing intense light up to 19,400°C.' },
+      { id: 24, part: 1, type: 'identification', question: 'Parameter measured in Amperes whose volume directly determines tissue damage severity.', valid: ['CURRENT MAGNITUDE', 'CURRENT'], display: 'CURRENT MAGNITUDE', excerpt: 'UP REVIEWER Page 2: Current Magnitude: Measured in Amperes (current volume directly determines damage).' },
+      { id: 25, part: 1, type: 'identification', question: 'Direct current path across the human heart presenting maximum lethality.', valid: ['CHEST-TO-BACK / HAND-TO-HAND', 'CHEST-TO-BACK', 'HAND-TO-HAND', 'CHEST TO BACK', 'HAND TO HAND'], display: 'CHEST-TO-BACK / HAND-TO-HAND', excerpt: 'UP REVIEWER Page 2: Path of current: Direct paths across the heart (chest-to-back or hand-to-hand) present maximum lethality.' },
+      { id: 26, part: 1, type: 'identification', question: 'Hard body case enclosure that protects internal multimeter circuitry.', valid: ['PANEL'], display: 'PANEL', excerpt: 'UP REVIEWER Page 3 & 7: Panel - Case, it protect multimeter.' },
+      { id: 27, part: 1, type: 'identification', question: 'Curved arc on a VOM displaying values for Ohms, AC/DC Voltage, and Current.', valid: ['SCALE'], display: 'SCALE', excerpt: 'UP REVIEWER Page 3: Scale: Curved arc displaying values for Resistance (Ohms), DC/AC Voltage (V), and Current (A).' },
+      { id: 28, part: 1, type: 'identification', question: 'Part located behind the multimeter scale used to eliminate parallax error.', valid: ['MIRROR'], display: 'MIRROR', excerpt: 'UP REVIEWER Page 3 & 7: Mirror: Mirror located behind scale; align needle directly over its reflection to eliminate parallax error.' },
+      { id: 29, part: 1, type: 'identification', question: 'Moving needle on a multimeter indicating parameter value.', valid: ['POINTER'], display: 'POINTER', excerpt: 'UP REVIEWER Page 3 & 7: Pointer: moving needle indicating parameter value.' },
+      { id: 30, part: 1, type: 'identification', question: 'Flat plastic screw on needle pivot used to manually align pointer to left zero line for voltage/current.', valid: ['ZERO POSITION ADJUSTER'], display: 'ZERO POSITION ADJUSTER', excerpt: 'UP REVIEWER Page 3 & 7: Zero Position Adjuster: Screw on needle pivot to zero needle on left side of scale.' },
+      { id: 31, part: 1, type: 'identification', question: 'Rotary knob used to zero needle on the right side of scale prior to resistance measurement under shorted probes.', valid: ['ZERO-OHM POSITION ADJUSTER', 'ZERO OHM POSITION ADJUSTER', 'ZERO-OHM ADJUSTER'], display: 'ZERO-OHM POSITION ADJUSTER', excerpt: 'UP REVIEWER Page 3 & 8: Zero Ohm Position Adjuster: Rotary knob used to zero needle on right side of scale.' },
+      { id: 32, part: 1, type: 'identification', question: 'Main dial selecting parameter and full-scale measurement threshold on a VOM.', valid: ['RANGE SELECTOR KNOB', 'RANGE SELECTOR'], display: 'RANGE SELECTOR KNOB', excerpt: 'UP REVIEWER Page 3 & 8: Range Selector Knob: Main dial selecting parameter and threshold.' },
+      { id: 33, part: 1, type: 'identification', question: 'Metallic tips at the end of multimeter test probes.', valid: ['TEST PINS'], display: 'TEST PINS', excerpt: 'UP REVIEWER Page 4 & 8: Test Pins - metal part of test probes.' },
+      { id: 34, part: 1, type: 'identification', question: 'Raised ridges on probe handles preventing fingers from slipping forward onto live circuits.', valid: ['FINGER GUARDS'], display: 'FINGER GUARDS', excerpt: 'UP REVIEWER Page 7 & 8: Finger Guards: Raised ridges on probe handles preventing fingers from slipping.' },
+      { id: 35, part: 1, type: 'identification', question: 'Single-wire electrical connector used for joining wires to equipment.', valid: ['BANANA JACK', 'BANANA WIRES'], display: 'BANANA JACK', excerpt: 'UP REVIEWER Page 4 & 6: Banana Jack: A single-wire electrical connector used for joining wires to equipment.' },
+      { id: 36, part: 1, type: 'identification', question: 'Modular insulated block used to safely connect two or more wires together.', valid: ['TERMINAL BLOCK', 'CONNECTION TERMINAL'], display: 'TERMINAL BLOCK', excerpt: 'UP REVIEWER Page 4 & 6: Terminal Block: Modular block with an insulated frame that secures two or more wires together.' },
+      { id: 37, part: 1, type: 'identification', question: 'Color of indicator lamp signifying normal motor operation, safety, or ready status.', valid: ['GREEN', 'GREEN INDICATING LAMP'], display: 'GREEN', excerpt: 'UP REVIEWER Page 4 & 6: Green: Run / Normal Motor Operation, safety, or ready status.' },
+      { id: 38, part: 1, type: 'identification', question: 'Color of indicator lamp signifying power on, idle, emergency, or stop condition.', valid: ['RED', 'RED INDICATING LAMP'], display: 'RED', excerpt: 'UP REVIEWER Page 4 & 6: Red: Power On / idle, emergency, danger, system failure, or stop condition.' },
+      { id: 39, part: 1, type: 'identification', question: 'Color of indicator lamp signifying caution, warning, fault, or emergency thermal trip.', valid: ['YELLOW', 'AMBER', 'ORANGE', 'YELLOW / AMBER', 'YELLOW/ORANGE'], display: 'YELLOW / AMBER', excerpt: 'UP REVIEWER Page 4 & 6: Yellow/Amber: Fault / Emergency Thermal Trip, caution, warning.' },
+      { id: 40, part: 1, type: 'identification', question: 'Mechanical device controlling electricity flow by opening/closing contacts when pressed.', valid: ['PUSH BUTTON', 'MOMENTARY PUSH BUTTON'], display: 'PUSH BUTTON', excerpt: 'UP REVIEWER Page 4 & 6: Push Button: Mechanical device controlling flow of electricity by opening or closing contacts.' },
+      { id: 41, part: 1, type: 'identification', question: 'Type of push button used specifically as an Emergency Stop Button.', valid: ['MUSHROOM HEAD PUSH BUTTON', 'MUSHROOM HEAD'], display: 'MUSHROOM HEAD PUSH BUTTON', excerpt: 'UP REVIEWER Page 6: Mushroom Head Push Button: Emergency Stop Button.' },
+      { id: 42, part: 1, type: 'identification', question: 'Switch operated by an electromagnet to mechanically open or close contact sets.', valid: ['ELECTROMECHANICAL RELAY', 'EMR', 'ELECTROMECHANICAL RELAY (EMR)'], display: 'ELECTROMECHANICAL RELAY (EMR)', excerpt: 'UP REVIEWER Page 4 & 6: Electromechanical Relay (EMR): Switch operated by electromagnet.' },
+      { id: 43, part: 1, type: 'identification', question: 'Thin wire filament material inside incandescent light bulbs that glows when heated.', valid: ['TUNGSTEN'], display: 'TUNGSTEN', excerpt: 'UP REVIEWER Page 6: Incandescent Bulb: Passes electrical current through a thin wire filament—usually made of tungsten.' },
+      { id: 44, part: 1, type: 'identification', question: 'Electromechanical device providing mechanical support and electrical connections for a light bulb.', valid: ['BULB SOCKET', 'LAMP HOLDER'], display: 'BULB SOCKET (LAMP HOLDER)', excerpt: 'UP REVIEWER Page 4 & 6: Bulb Socket (Lamp Holder): Electromechanical device providing support and connections for light bulb.' },
+      { id: 45, part: 1, type: 'identification', question: 'Electrical safety device containing a thin conductive metal strip designed to melt during overcurrent.', valid: ['FUSE'], display: 'FUSE', excerpt: 'UP REVIEWER Page 4 & 6: Fuse: Safety device providing overcurrent protection with a thin filament designed to melt.' },
+      { id: 46, part: 1, type: 'identification', question: 'Device wired into fluorescent light fixtures to regulate voltage and deliver high-voltage strike arc.', valid: ['FLUORESCENT BALLAST'], display: 'FLUORESCENT BALLAST', excerpt: 'UP REVIEWER Page 4 & 6: Fluorescent Ballast: Regulates voltage, delivers initial high-voltage spike, limits current.' },
+      { id: 47, part: 1, type: 'identification', question: 'Heavy-duty electrically controlled switch built to connect or disconnect high-power circuits.', valid: ['MAGNETIC CONTACTOR'], display: 'MAGNETIC CONTACTOR', excerpt: 'UP REVIEWER Page 4 & 6: Magnetic Contactor: Electrically controlled heavy-duty switch for high-power circuits.' },
+      { id: 48, part: 1, type: 'identification', question: 'Protective device mounted directly underneath a magnetic contactor to trip during sustained overcurrent.', valid: ['OVERLOAD RELAY'], display: 'OVERLOAD RELAY', excerpt: 'UP REVIEWER Page 4 & 7: Overload Relay: Protective device mounted directly underneath a magnetic contactor.' },
+      { id: 49, part: 1, type: 'identification', question: 'Delay switch used to open or close contacts after a preset time delay.', valid: ['TIMER RELAY', 'TIMER'], display: 'TIMER RELAY', excerpt: 'UP REVIEWER Page 4 & 7: Timer Relay: Open or close contacts after a preset time delay.' },
+      { id: 50, part: 1, type: 'identification', question: 'Passive two-terminal component with a set unchangeable electrical resistance value.', valid: ['FIXED RESISTOR'], display: 'FIXED RESISTOR', excerpt: 'UP REVIEWER Page 5 & 8: Fixed Resistor: Passive two-terminal component with set unchangeable resistance value.' },
+
+      // PART II: TRUE OR FALSE (51 - 75)
+      { id: 51, part: 2, type: 'tf', question: 'Conductors contain 5 to 8 valence electrons in their outermost shell.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 1: Conductors contain 1 to 3 valence electrons. Insulators contain 5 to 8.' },
+      { id: 52, part: 2, type: 'tf', question: 'Dry skin exhibits high resistance, whereas wet skin exhibits low resistance causing high current flow.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 3: Moisture: Dry skin = High resistance; Wet skin = Low resistance (high current flow).' },
+      { id: 53, part: 2, type: 'tf', question: 'Conventional current flow moves from negative (-) to positive (+).', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 2: Conventional Current Flow moves Positive (+) to Negative (-). Electron flow moves (-) to (+).' },
+      { id: 54, part: 2, type: 'tf', question: 'Direct current (DC) is chemically stored in batteries, cells, and solar panels.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 2: Direct Current (DC) is stored in batteries/cells, solar panels, and DC supplies.' },
+      { id: 55, part: 2, type: 'tf', question: 'An Arc Flash event produces temperatures up to 19,400°C, which substantially exceeds the surface solar temperature of 5,500°C.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 2: Arc Flash thermal output up to 19,400°C substantially exceeds surface solar temperature of 5,500°C.' },
+      { id: 56, part: 2, type: 'tf', question: 'Increasing the duration of electrical current exposure reduces human tissue damage.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 2: Duration of current: Exposure time increases tissue destruction.' },
+      { id: 57, part: 2, type: 'tf', question: 'Small contact area between the body and electrical conductor results in high local resistance.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 3: Contact Area: Small contact area = High local resistance; Large contact area = Low resistance.' },
+      { id: 58, part: 2, type: 'tf', question: 'Voltage can be calculated using the formula V = sqrt(P * R).', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 3: Voltage formula table: V = sqrt(P * R).' },
+      { id: 59, part: 2, type: 'tf', question: 'Electrical current (I) can be calculated using I = V * R.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 3: Current formula is I = V / R (not V * R).' },
+      { id: 60, part: 2, type: 'tf', question: 'Power (P) dissipated in a circuit can be expressed as P = V^2 / R.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 3: Power formula table: P = V^2 / R.' },
+      { id: 61, part: 2, type: 'tf', question: 'Resistance measurements on an analog multimeter must be performed on energized (powered-on) circuits.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 7: Resistance Measurement: Tested on de-energized (powered-off) circuits only.' },
+      { id: 62, part: 2, type: 'tf', question: 'Voltage measurement requires connecting the voltmeter in series with the load circuit.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 7: Voltage Measurement is connected in parallel with the circuit.' },
+      { id: 63, part: 2, type: 'tf', question: 'Current measurement requires connecting the ammeter in series with the circuit under test.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 7: Current Measurement is connected in series with the circuit.' },
+      { id: 64, part: 2, type: 'tf', question: 'Parallax error is eliminated when the user aligns their eyes so the pointer directly hides its own reflection in the mirror.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 7: Mirror: Line up your eyes so pointer directly hides its own reflection in mirror.' },
+      { id: 65, part: 2, type: 'tf', question: 'Green push buttons represent Normally Closed (NC) contacts for start commands.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 4 & 6: Green Push Button is Normally Open (NO) for start command.' },
+      { id: 66, part: 2, type: 'tf', question: 'Red push buttons represent Normally Closed (NC) contacts for stop/off commands.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 4 & 6: Red Push Button is Normally Closed (NC) for stop/off command.' },
+      { id: 67, part: 2, type: 'tf', question: 'The coil terminals of a magnetic contactor are labeled A1 and A2.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 4: Magnetic Contactor coil terminals are labeled A1 - A2.' },
+      { id: 68, part: 2, type: 'tf', question: 'Main power terminals of a magnetic contactor are labeled X1, Y1, Z1 and X2, Y2, Z2.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 4: Main terminals: X1, Y1, Z1 / X2, Y2, Z2.' },
+      { id: 69, part: 2, type: 'tf', question: 'Pressing the "Push to Trip" feature on a circuit breaker manually releases the internal trip bar to force contacts open.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 7: Push to Trip Fault: Pressing it manually releases internal trip bar to force breaker open.' },
+      { id: 70, part: 2, type: 'tf', question: 'Simple continuity testing applies to push buttons and circuit breakers.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 5: Push buttons and circuit breakers fall under Conditional Continuity testing.' },
+      { id: 71, part: 2, type: 'tf', question: 'Fluorescent ballasts, fixed resistors, and magnetic coils are tested under Load Resistance testing.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 5 Flowchart: Load resistance test applies to Fluorescent ballast, fixed resistor, and coil.' },
+      { id: 72, part: 2, type: 'tf', question: 'Voltage testing of a 9V battery or 1.5V battery is classified under Non-Active (No Supply) test.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 5 Flowchart: 9V battery and 1.5V battery are under ACTIVE (w/ Supply) test.' },
+      { id: 73, part: 2, type: 'tf', question: 'A variable transformer allows users to manually adjust and control output AC voltage levels.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 4 & 8: Variable transformer allows smooth manual adjustment of AC output voltage.' },
+      { id: 74, part: 2, type: 'tf', question: 'The electromechanical relay uses magnetic coil pins 2 & 7 to drive auxiliary contacts.', valid: ['TRUE', 'T'], display: 'TRUE', excerpt: 'UP REVIEWER Page 4: Electromechanical Relay: Magnetic coil assembly (Pins 2 & 7) driving contacts.' },
+      { id: 75, part: 2, type: 'tf', question: 'Convenience outlets provide Direct Current (DC) power directly to wall chargers.', valid: ['FALSE', 'F'], display: 'FALSE', excerpt: 'UP REVIEWER Page 5 & 8: Outlets provide Alternating Current (AC) power.' },
+
+      // PART III: OHM'S LAW & POWER LAW CALCULATIONS (76 - 85)
+      { id: 76, part: 3, type: 'short', question: 'CALCULATION 1: A 120V household wall outlet feeds an electric heater with a resistance of 20 Ohms. Calculate the current (I) in Amperes. (Formula: I = V / R)', valid: ['6', '6A', '6 A', '6 AMPS', '6 AMPERES'], display: '6 A', excerpt: 'UP REVIEWER Page 3: I = V / R -> I = 120V / 20 Ohms = 6 Amperes.' },
+      { id: 77, part: 3, type: 'short', question: 'CALCULATION 2: An electric motor draws 5 Amperes from a circuit with a total resistance of 24 Ohms. Calculate the voltage (V) across the motor in Volts. (Formula: V = I * R)', valid: ['120', '120V', '120 V', '120 VOLTS'], display: '120 V', excerpt: 'UP REVIEWER Page 3: V = I * R -> V = 5A * 24 Ohms = 120 Volts.' },
+      { id: 78, part: 3, type: 'short', question: 'CALCULATION 3: A DC power supply delivers 12 Volts to an indicator bulb, drawing 0.5 Amperes. Calculate power (P) in Watts consumed by the bulb. (Formula: P = V * I)', valid: ['6', '6W', '6 W', '6 WATTS'], display: '6 W', excerpt: 'UP REVIEWER Page 3: P = V * I -> P = 12V * 0.5A = 6 Watts.' },
+      { id: 79, part: 3, type: 'short', question: 'CALCULATION 4: An industrial heating coil has a resistance of 10 Ohms and carries a current of 4 Amperes. Calculate power (P) dissipated in Watts. (Formula: P = I^2 * R)', valid: ['160', '160W', '160 W', '160 WATTS'], display: '160 W', excerpt: 'UP REVIEWER Page 3: P = I^2 * R -> P = (4)^2 * 10 = 16 * 10 = 160 Watts.' },
+      { id: 80, part: 3, type: 'short', question: 'CALCULATION 5: An incandescent lamp rated at 100 Watts operates at 200 Volts. Calculate the electrical resistance (R) of tungsten filament in Ohms. (Formula: R = V^2 / P)', valid: ['400', '400 OHMS', '400 OHM', '400OHMS'], display: '400 OHMS', excerpt: 'UP REVIEWER Page 3: R = V^2 / P -> R = (200)^2 / 100 = 40,000 / 100 = 400 Ohms.' },
+      { id: 81, part: 3, type: 'short', question: 'CALCULATION 6: A fixed resistor dissipates 50 Watts of power when connected to a 100V DC power supply. Calculate current (I) in Amperes. (Formula: I = P / V)', valid: ['0.5', '0.5A', '0.5 A', '0.5 AMPS', '0.5 AMPERES'], display: '0.5 A', excerpt: 'UP REVIEWER Page 3: I = P / V -> I = 50W / 100V = 0.5 Amperes.' },
+      { id: 82, part: 3, type: 'short', question: 'CALCULATION 7: An electrical circuit dissipates 200 Watts across a load resistor of 50 Ohms. Calculate applied voltage (V) in Volts. (Formula: V = sqrt(P * R))', valid: ['100', '100V', '100 V', '100 VOLTS'], display: '100 V', excerpt: 'UP REVIEWER Page 3: V = sqrt(P * R) -> V = sqrt(200 * 50) = sqrt(10,000) = 100 Volts.' },
+      { id: 83, part: 3, type: 'short', question: 'CALCULATION 8: A 9V battery powers a pilot lamp with a resistance of 18 Ohms. Calculate current (I) flowing in Amperes. (Formula: I = V / R)', valid: ['0.5', '0.5A', '0.5 A', '0.5 AMPS', '0.5 AMPERES'], display: '0.5 A', excerpt: 'UP REVIEWER Page 3: I = V / R -> I = 9V / 18 Ohms = 0.5 Amperes.' },
+      { id: 84, part: 3, type: 'short', question: 'CALCULATION 9: A fluorescent ballast draws 0.2 Amperes from a 220V AC wall outlet. Calculate total power (P) in Watts. (Formula: P = V * I)', valid: ['44', '44W', '44 W', '44 WATTS'], display: '44 W', excerpt: 'UP REVIEWER Page 3: P = V * I -> P = 220V * 0.2A = 44 Watts.' },
+      { id: 85, part: 3, type: 'short', question: 'CALCULATION 10: A magnetic contactor coil has resistance of 800 Ohms operating at 8 Watts power. Calculate operating current (I) in Amperes. (Formula: I = sqrt(P / R))', valid: ['0.1', '0.1A', '0.1 A', '0.1 AMPS', '0.1 AMPERES'], display: '0.1 A', excerpt: 'UP REVIEWER Page 3: I = sqrt(P / R) -> I = sqrt(8 / 800) = sqrt(0.01) = 0.1 Amperes.' },
+
+      // PART IV: ENUMERATION & SHORT ANSWER (86 - 100)
+      { id: 86, part: 4, type: 'short', question: 'Nominal output voltage of a rectangular cuboid battery with snap terminals on top.', valid: ['9V', '9 VOLTS', '9 VOLT', '9 V', '9'], display: '9V', excerpt: 'UP REVIEWER Page 4 & 8: 9V Battery supplies a nominal 9 volts of electricity through snap terminals.' },
+      { id: 87, part: 4, type: 'short', question: 'Nominal output voltage of a single-cell standard AA battery.', valid: ['1.5V', '1.5 VOLTS', '1.5 VOLT', '1.5 V', '1.5'], display: '1.5V', excerpt: 'UP REVIEWER Page 5 & 8: 1.5V Battery: single-cell power source delivering 1.5V.' },
+      { id: 88, part: 4, type: 'short', question: 'Number of degrees representing one full complete cycle in AC.', valid: ['360', '360 DEGREES', '360 DEG', '360°'], display: '360 DEGREES', excerpt: 'UP REVIEWER Page 2: 360 degrees - 1 cycle in AC.' },
+      { id: 89, part: 4, type: 'short', question: 'Number of degrees representing a half cycle in AC.', valid: ['180', '180 DEGREES', '180 DEG', '180°'], display: '180 DEGREES', excerpt: 'UP REVIEWER Page 2: 180 degrees - half cycle in AC.' },
+      { id: 90, part: 4, type: 'short', question: 'Surface temperature of the sun referenced in safety guidelines (in °C).', valid: ['5500', '5,500', '5500°C', '5,500°C', '5500 C', '5,500 C'], display: '5,500°C', excerpt: 'UP REVIEWER Page 2: Surface solar temperatures of 5,500°C.' },
+      { id: 91, part: 4, type: 'short', question: 'Maximum thermal temperature generated during an Arc Flash event (in °C).', valid: ['19400', '19,400', '19400°C', '19,400°C', '19400 C', '19,400 C'], display: '19,400°C', excerpt: 'UP REVIEWER Page 2: Flashover Event / Arc Flash thermal output up to 19,400°C.' },
+      { id: 92, part: 4, type: 'short', question: 'Pin numbers assigned to the magnetic coil assembly in an Electromechanical Relay (EMR).', valid: ['PINS 2 & 7', '2 & 7', 'PINS 2 AND 7', '2 AND 7', '2, 7'], display: 'PINS 2 & 7', excerpt: 'UP REVIEWER Page 4: Electromechanical Relay: Magnetic coil assembly (Pins 2 & 7).' },
+      { id: 93, part: 4, type: 'short', question: 'Coil terminal labels on a Magnetic Contactor.', valid: ['A1 - A2', 'A1-A2', 'A1, A2', 'A1 AND A2', 'A1 A2'], display: 'A1 - A2', excerpt: 'UP REVIEWER Page 4: Magnetic Contactor: Coil terminals labeled A1 - A2.' },
+      { id: 94, part: 4, type: 'short', question: 'Contact type state for a Green Push Button used to initiate a start command.', valid: ['NORMALLY OPEN', 'NO', 'NORMALLY OPEN (NO)'], display: 'NORMALLY OPEN (NO)', excerpt: 'UP REVIEWER Page 4 & 6: Green Push Button (Normally Open) - Indicates start command.' },
+      { id: 95, part: 4, type: 'short', question: 'Contact type state for a Red Push Button used to initiate a stop command.', valid: ['NORMALLY CLOSED', 'NC', 'NORMALLY CLOSED (NC)'], display: 'NORMALLY CLOSED (NC)', excerpt: 'UP REVIEWER Page 4 & 6: Red Push Button (Normally Closed) - Indicates stop command.' },
+      { id: 96, part: 4, type: 'short', question: 'VOM panel section for measuring Direct Current potential located on the white upper-left.', valid: ['DC VOLTMETER', 'DCV'], display: 'DC VOLTMETER (DCV)', excerpt: 'UP REVIEWER Page 4 & 8: DC Voltmeter - white upper left part.' },
+      { id: 97, part: 4, type: 'short', question: 'VOM panel section for measuring Alternating Current potential located on the red upper-right.', valid: ['AC VOLTMETER', 'ACV'], display: 'AC VOLTMETER (ACV)', excerpt: 'UP REVIEWER Page 4 & 8: AC Voltmeter - red part.' },
+      { id: 98, part: 4, type: 'short', question: 'VOM panel section for measuring Direct Current flow in milliamperes located on the white lower-left.', valid: ['DC AMMETER', 'DCA'], display: 'DC AMMETER (DCA)', excerpt: 'UP REVIEWER Page 4 & 8: DC Ammeter - white part lower left part.' },
+      { id: 99, part: 4, type: 'short', question: 'Non-Active continuity test category for Banana Jacks, Fuses, and Terminal Blocks.', valid: ['SIMPLE CONTINUITY', 'SIMPLE CONTINUITY TEST'], display: 'SIMPLE CONTINUITY', excerpt: 'UP REVIEWER Page 5 Flowchart: Simple Continuity applies to banana jack, fuse, terminal block, contact.' },
+      { id: 100, part: 4, type: 'short', question: 'Non-Active continuity test category for Push Buttons and Circuit Breakers.', valid: ['CONDITIONAL CONTINUITY', 'CONDITIONAL CONTINUITY TEST'], display: 'CONDITIONAL CONTINUITY', excerpt: 'UP REVIEWER Page 5 Flowchart: Conditional Continuity applies to push button and circuit breaker.' }
+    ];
+
+    // APPLICATION STATE VARIABLES
+    let userAnswers = {};
+    let flaggedItems = {};
+    let currentFilterPart = 'ALL';
+    let filterUnansweredOnly = false;
+    let timerSeconds = 0;
+    let timerInterval = null;
+
+    // LOCAL STORAGE KEYS
+    const STORAGE_KEY_ANSWERS = 'up_electricity_exam_answers_v2';
+    const STORAGE_KEY_FLAGS = 'up_electricity_exam_flags_v2';
+    const STORAGE_KEY_TIME = 'up_electricity_exam_time_v2';
+
+    // ON LOAD INITIALIZATION
+    window.onload = function() {
+      loadSavedState();
+      startTimer();
+      renderQuestions();
+      renderAllGrids();
+      updateProgress();
+    };
+
+    // TIMER LOGIC
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        document.getElementById('timerDisplay').innerText = formatTime(timerSeconds);
+        localStorage.setItem(STORAGE_KEY_TIME, timerSeconds.toString());
+      }, 1000);
+    }
+
+    function formatTime(totalSecs) {
+      const mins = Math.floor(totalSecs / 60);
+      const secs = totalSecs % 60;
+      return `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+    }
+
+    // LOCALSTORAGE PERSISTENCE
+    function loadSavedState() {
+      try {
+        const a = localStorage.getItem(STORAGE_KEY_ANSWERS);
+        if (a) userAnswers = JSON.parse(a);
+        const f = localStorage.getItem(STORAGE_KEY_FLAGS);
+        if (f) flaggedItems = JSON.parse(f);
+        const t = localStorage.getItem(STORAGE_KEY_TIME);
+        if (t) timerSeconds = parseInt(t, 10) || 0;
+      } catch(e){}
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY_ANSWERS, JSON.stringify(userAnswers));
+      localStorage.setItem(STORAGE_KEY_FLAGS, JSON.stringify(flaggedItems));
+    }
+
+    // RENDER QUESTIONS CARDS
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+
+      const filtered = questionsData.filter(q => {
+        if (currentFilterPart !== 'ALL' && q.part !== currentFilterPart) return false;
+        if (filterUnansweredOnly && userAnswers[q.id] && userAnswers[q.id].trim() !== '') return false;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-10 text-center space-y-2">
+            <div class="inline-flex p-3 bg-slate-900 rounded-full text-slate-500 mb-1">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-slate-300">No items in this category filter.</h3>
+            <p class="text-xs text-slate-500">Switch sections or turn off "Unanswered Only".</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach((q) => {
+        const isAnswered = userAnswers[q.id] && userAnswers[q.id].trim() !== '';
+        const isFlagged = !!flaggedItems[q.id];
+        const val = userAnswers[q.id] || '';
+
+        const card = document.createElement('div');
+        card.id = `q-card-${q.id}`;
+        card.className = `bg-slate-950 border ${isFlagged ? 'border-amber-500/60 shadow-amber-500/5' : isAnswered ? 'border-slate-700/80' : 'border-slate-800'} rounded-2xl p-4 sm:p-5 shadow-lg space-y-3 transition-all duration-200`;
+
+        let partLabel = 'PART I: IDENTIFICATION';
+        if (q.part === 2) partLabel = 'PART II: TRUE OR FALSE';
+        if (q.part === 3) partLabel = 'PART III: OHM\'S & POWER LAW CALCULATIONS';
+        if (q.part === 4) partLabel = 'PART IV: ENUMERATION & SHORT ANSWER';
+
+        let inputHTML = '';
+
+        if (q.type === 'tf') {
+          const isTrue = val.toUpperCase() === 'TRUE' || val.toUpperCase() === 'T';
+          const isFalse = val.toUpperCase() === 'FALSE' || val.toUpperCase() === 'F';
+          inputHTML = `
+            <div class="flex items-center gap-3 pt-1">
+              <button type="button" onclick="setTrueFalse(${q.id}, 'TRUE')"
+                class="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 border ${isTrue ? 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-600/30 ring-2 ring-emerald-400/50' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                TRUE
+              </button>
+              <button type="button" onclick="setTrueFalse(${q.id}, 'FALSE')"
+                class="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 border ${isFalse ? 'bg-rose-600 text-white border-rose-500 shadow-md shadow-rose-600/30 ring-2 ring-rose-400/50' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                FALSE
+              </button>
+            </div>
+          `;
+        } else {
+          inputHTML = `
+            <div class="relative pt-1">
+              <input
+                type="text"
+                id="input-${q.id}"
+                value="${escapeHtml(val)}"
+                oninput="handleInput(${q.id}, this.value)"
+                placeholder="TYPE ANSWER IN CAPITAL LETTERS..."
+                class="uppercase-input w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/30 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-100 placeholder-slate-600 outline-none transition font-mono tracking-wide"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 bg-slate-900 border border-slate-700 rounded-lg text-xs font-bold text-cyan-400 font-mono">
+                #${q.id}
+              </span>
+              <span class="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                ${partLabel}
+              </span>
+            </div>
+
+            <button onclick="toggleFlag(${q.id})" class="p-1.5 rounded-lg transition ${isFlagged ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-900'}" title="Flag Item">
+              <svg class="w-4 h-4" fill="${isFlagged ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+            </button>
+          </div>
+
+          <h3 class="text-xs sm:text-sm font-semibold text-slate-100 leading-relaxed">
+            ${q.question}
+          </h3>
+
+          ${inputHTML}
+
+          <!-- CARD NAV CONTROLS -->
+          <div class="flex items-center justify-between pt-2 border-t border-slate-900 text-xs">
+            <button onclick="navigatePrev(${q.id})" ${q.id === 1 ? 'disabled class="opacity-30 cursor-not-allowed text-slate-600"' : 'class="text-slate-400 hover:text-slate-200 transition flex items-center gap-1"'}>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+              Prev Item
+            </button>
+
+            <button onclick="navigateNext(${q.id})" ${q.id === 100 ? 'disabled class="opacity-30 cursor-not-allowed text-slate-600"' : 'class="text-cyan-400 hover:text-cyan-300 font-semibold transition flex items-center gap-1"'}>
+              Next Item
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // INPUT HANDLERS
+    function handleInput(id, rawVal) {
+      const upper = rawVal.toUpperCase();
+      const inputEl = document.getElementById(`input-${id}`);
+      if (inputEl && inputEl.value !== upper) {
+        inputEl.value = upper;
+      }
+      userAnswers[id] = upper;
+      saveState();
+      updateProgress();
+      updateGridItem(id);
+    }
+
+    function setTrueFalse(id, choice) {
+      userAnswers[id] = choice;
+      saveState();
+      updateProgress();
+      renderQuestions();
+      updateGridItem(id);
+    }
+
+    function toggleFlag(id) {
+      flaggedItems[id] = !flaggedItems[id];
+      saveState();
+      renderQuestions();
+      updateGridItem(id);
+    }
+
+    function navigatePrev(currentId) {
+      if (currentId > 1) scrollToQuestion(currentId - 1);
+    }
+
+    function navigateNext(currentId) {
+      if (currentId < 100) scrollToQuestion(currentId + 1);
+    }
+
+    // UPDATE COUNTER & PROGRESS
+    function updateProgress() {
+      let count = 0;
+      questionsData.forEach(q => {
+        if (userAnswers[q.id] && userAnswers[q.id].trim() !== '') count++;
+      });
+      document.getElementById('answeredCount').innerText = count;
+      document.getElementById('progressBar').style.width = `${(count / 100) * 100}%`;
+    }
+
+    // GRID MAP NAVIGATOR (DESKTOP & MOBILE)
+    function renderAllGrids() {
+      renderGridContainer(document.getElementById('desktopQuestionGrid'), 'd');
+      renderGridContainer(document.getElementById('mobileQuestionGrid'), 'm');
+    }
+
+    function renderGridContainer(gridEl, prefix) {
+      if (!gridEl) return;
+      gridEl.innerHTML = '';
+      for (let i = 1; i <= 100; i++) {
+        const btn = document.createElement('button');
+        btn.id = `grid-btn-${prefix}-${i}`;
+        btn.onclick = () => {
+          scrollToQuestion(i);
+          closeMobileDrawer();
+        };
+        btn.className = getGridBtnClass(i);
+        btn.innerText = i;
+        gridEl.appendChild(btn);
+      }
+    }
+
+    function getGridBtnClass(id) {
+      const isAns = userAnswers[id] && userAnswers[id].trim() !== '';
+      const isFlag = !!flaggedItems[id];
+      let base = 'w-full aspect-square rounded-lg text-[11px] font-bold transition flex items-center justify-center border font-mono ';
+      if (isFlag) return base + 'bg-amber-950/80 text-amber-300 border-amber-500/60 shadow-sm';
+      if (isAns) return base + 'bg-cyan-950/80 text-cyan-300 border-cyan-500/50';
+      return base + 'bg-slate-900 text-slate-500 border-slate-800 hover:bg-slate-800 hover:text-slate-300';
+    }
+
+    function updateGridItem(id) {
+      ['d', 'm'].forEach(prefix => {
+        const btn = document.getElementById(`grid-btn-${prefix}-${id}`);
+        if (btn) btn.className = getGridBtnClass(id);
+      });
+    }
+
+    function scrollToQuestion(id) {
+      const qObj = questionsData.find(q => q.id === id);
+      if (currentFilterPart !== 'ALL' && qObj.part !== currentFilterPart) {
+        filterPart('ALL');
+      }
+      if (filterUnansweredOnly) {
+        filterUnansweredOnly = false;
+        document.getElementById('unansweredFilterBtn').classList.remove('bg-amber-500/20', 'border-amber-500/50', 'text-amber-300');
+        renderQuestions();
+      }
+
+      setTimeout(() => {
+        const el = document.getElementById(`q-card-${id}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('ring-2', 'ring-cyan-400');
+          setTimeout(() => el.classList.remove('ring-2', 'ring-cyan-400'), 1800);
+        }
+      }, 60);
+    }
+
+    // DRAWER TOGGLES
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobileDrawer');
+      const overlay = document.getElementById('mobileDrawerOverlay');
+      if (drawer.classList.contains('-translate-x-full')) {
+        drawer.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+      } else {
+        closeMobileDrawer();
+      }
+    }
+
+    function closeMobileDrawer() {
+      document.getElementById('mobileDrawer').classList.add('-translate-x-full');
+      document.getElementById('mobileDrawerOverlay').classList.add('hidden');
+    }
+
+    function toggleDesktopGrid() {
+      const sidebar = document.getElementById('desktopGridSidebar');
+      sidebar.classList.toggle('hidden');
+    }
+
+    function filterPart(part) {
+      currentFilterPart = part;
+      document.querySelectorAll('.filter-tab').forEach(b => {
+        b.classList.remove('bg-cyan-600', 'text-white', 'shadow');
+        b.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+      });
+      const activeBtn = document.getElementById(`filterBtn-${part}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+        activeBtn.classList.add('bg-cyan-600', 'text-white', 'shadow');
+      }
+      renderQuestions();
+    }
+
+    function toggleUnansweredOnly() {
+      filterUnansweredOnly = !filterUnansweredOnly;
+      const btn = document.getElementById('unansweredFilterBtn');
+      if (filterUnansweredOnly) {
+        btn.classList.add('bg-amber-500/20', 'border-amber-500/50', 'text-amber-300');
+      } else {
+        btn.classList.remove('bg-amber-500/20', 'border-amber-500/50', 'text-amber-300');
+      }
+      renderQuestions();
+    }
+
+    function clearAllAnswers() {
+      if (confirm("Reset and clear all entered answers?")) {
+        userAnswers = {};
+        flaggedItems = {};
+        localStorage.removeItem(STORAGE_KEY_ANSWERS);
+        localStorage.removeItem(STORAGE_KEY_FLAGS);
+        renderQuestions();
+        renderAllGrids();
+        updateProgress();
+      }
+    }
+
+    // FLEXIBLE GRADING ENGINE WITH PLURAL & NUMERIC NORMALIZATION
+    function checkAnswer(userAns, validList) {
+      if (!userAns || userAns.trim() === '') return false;
+      const normUser = userAns.trim().toUpperCase();
+
+      return validList.some(validItem => {
+        const normValid = validItem.trim().toUpperCase();
+
+        // Direct string match
+        if (normUser === normValid) return true;
+
+        // Singular / Plural variations (e.g., CONDUCTOR vs CONDUCTORS)
+        if (normUser + 'S' === normValid || normUser === normValid + 'S') return true;
+        if (normUser + 'ES' === normValid || normUser === normValid + 'ES') return true;
+
+        // Pure alphanumeric clean comparison (e.g. 19,400°C vs 19400)
+        const cleanUser = normUser.replace(/[^A-Z0-9.]/g, '');
+        const cleanValid = normValid.replace(/[^A-Z0-9.]/g, '');
+        if (cleanUser !== '' && cleanUser === cleanValid) return true;
+
+        return false;
+      });
+    }
+
+    // CONFIRM MODAL
+    function confirmSubmitExam() {
+      let unanswered = 0;
+      questionsData.forEach(q => {
+        if (!userAnswers[q.id] || userAnswers[q.id].trim() === '') unanswered++;
+      });
+
+      const modalText = document.getElementById('confirmModalText');
+      if (unanswered > 0) {
+        modalText.innerText = `You have ${unanswered} unanswered item(s) out of 100. Are you sure you want to finish and view your final score breakdown?`;
+      } else {
+        modalText.innerText = `Outstanding! You have answered all 100 questions. Proceed to generate your result evaluation?`;
+      }
+      document.getElementById('confirmModal').classList.remove('hidden');
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirmModal').classList.add('hidden');
+    }
+
+    // PROCESS EVALUATION & SHOW RESULTS
+    function processExamSubmission() {
+      closeConfirmModal();
+      if (timerInterval) clearInterval(timerInterval);
+
+      let correctScore = 0;
+      const reviewData = [];
+
+      questionsData.forEach(q => {
+        const rawUser = userAnswers[q.id] || '';
+        const isCorrect = checkAnswer(rawUser, q.valid);
+
+        if (isCorrect) correctScore++;
+
+        reviewData.push({
+          ...q,
+          userAnswer: rawUser || '(NO ANSWER)',
+          isCorrect: isCorrect
+        });
+      });
+
+      showResultsScreen(correctScore, reviewData);
+    }
+
+    function showResultsScreen(score, reviewData) {
+      const modal = document.getElementById('resultsModal');
+      modal.classList.remove('hidden');
+
+      const pct = Math.round((score / 100) * 100);
+      document.getElementById('finalScorePct').innerText = `${pct}%`;
+      document.getElementById('finalScoreFraction').innerText = `${score} / 100`;
+      document.getElementById('statCorrect').innerText = score;
+      document.getElementById('statIncorrect').innerText = 100 - score;
+      document.getElementById('statTime').innerText = formatTime(timerSeconds);
+
+      // SVG Circle gauge calculation
+      const circle = document.getElementById('scoreCircle');
+      const circumference = 2 * Math.PI * 52; // r=52 -> 326.72
+      const offset = circumference - (pct / 100) * circumference;
+      circle.style.strokeDashoffset = offset;
+
+      const passBadge = document.getElementById('passBadge');
+      if (pct >= 75) {
+        passBadge.innerText = 'PASSED (>= 75%)';
+        passBadge.className = 'inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+        circle.setAttribute('class', 'text-emerald-500 transition-all duration-1000 ease-out');
+      } else {
+        passBadge.innerText = 'NEEDS REVIEW (< 75%)';
+        passBadge.className = 'inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/30';
+        circle.setAttribute('class', 'text-rose-500 transition-all duration-1000 ease-out');
+      }
+
+      window.currentReviewData = reviewData;
+      renderReviewCards('ALL');
+    }
+
+    function renderReviewCards(filter) {
+      const container = document.getElementById('reviewContainer');
+      container.innerHTML = '';
+      const data = window.currentReviewData || [];
+
+      const filtered = data.filter(item => {
+        if (filter === 'CORRECT') return item.isCorrect;
+        if (filter === 'INCORRECT') return !item.isCorrect;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="p-8 bg-slate-900 border border-slate-800 rounded-2xl text-center text-slate-400 text-xs">No items match this filter option.</div>`;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `p-4 sm:p-5 rounded-2xl border ${item.isCorrect ? 'bg-slate-950/90 border-emerald-500/30' : 'bg-slate-950/90 border-rose-500/30'} shadow-lg space-y-3`;
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-3">
+            <span class="px-2.5 py-0.5 rounded text-xs font-bold font-mono ${item.isCorrect ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'}">
+              Item #${item.id} • ${item.isCorrect ? 'CORRECT' : 'INCORRECT'}
+            </span>
+            <span class="text-[11px] text-slate-400">Part ${item.part}</span>
+          </div>
+
+          <h4 class="text-xs sm:text-sm font-semibold text-slate-100 leading-relaxed">
+            ${item.question}
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-mono">
+            <div class="p-3 rounded-xl border ${item.isCorrect ? 'bg-emerald-950/20 border-emerald-500/30 text-emerald-200' : 'bg-rose-950/20 border-rose-500/30 text-rose-200'}">
+              <span class="text-[9px] font-extrabold uppercase block text-slate-400 mb-0.5">YOUR RESPONSE:</span>
+              <span class="text-xs sm:text-sm font-bold">${escapeHtml(item.userAnswer)}</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-cyan-200">
+              <span class="text-[9px] font-extrabold uppercase block text-slate-400 mb-0.5">CORRECT ANSWER KEY:</span>
+              <span class="text-xs sm:text-sm font-bold text-cyan-400">${escapeHtml(item.display)}</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
+            <span class="text-[9px] font-extrabold uppercase block text-amber-400 mb-1">UP REVIEWER EXCERPT:</span>
+            ${escapeHtml(item.excerpt)}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterReview(type) {
+      ['ALL', 'CORRECT', 'INCORRECT'].forEach(t => {
+        const btn = document.getElementById(`revFilter-${t}`);
+        if (btn) {
+          if (t === type) {
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-600 text-white shadow';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700';
+          }
+        }
+      });
+      renderReviewCards(type);
+    }
+
+    function retakeExam() {
+      if (confirm("Retaking will reset all inputs, timer, and score evaluation. Continue?")) {
+        userAnswers = {};
+        flaggedItems = {};
+        timerSeconds = 0;
+        localStorage.removeItem(STORAGE_KEY_ANSWERS);
+        localStorage.removeItem(STORAGE_KEY_FLAGS);
+        localStorage.removeItem(STORAGE_KEY_TIME);
+
+        document.getElementById('resultsModal').classList.add('hidden');
+        startTimer();
+        renderQuestions();
+        renderAllGrids();
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>
